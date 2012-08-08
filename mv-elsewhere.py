@@ -59,6 +59,7 @@ def debugmessage(logstring):
         printmessage(logstring)
 
 def main():
+    scriptname = mv-elsewhere.py
     dst = ''
     filemove = False
     filecopy = True
@@ -72,11 +73,11 @@ def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hd:movDe:",["destdir=", "move","ovrerride","verbose","debug","exclude"])
     except getopt.GetoptError:
-        print('mv-dir-tree.py -d <destfile>')
+        print(scriptname+' -d <destfile> [-m] [-o] [-v] [-D][-e string]')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('mv-dir-tree.py -d <destfile> [-m] [-o] [-v] [-D][-e string]')
+            print(scriptname+' -d <destfile> [-m] [-o] [-v] [-D][-e string]')
             print('')
             print('-d: destination directory.')
             print('-D: debug.')
