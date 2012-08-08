@@ -1,0 +1,4 @@
+#TODO:
+#add possibility to give multiple excludes
+#add posibility to read files to process from a file instead of stdin
+#add a staristics do nothing option,.. this option will actualy do nothing. Instead it will print what would do.
