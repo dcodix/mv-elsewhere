@@ -109,8 +109,7 @@ def main():
         if not file1:
             break
         file1 = file1.rstrip()
-        if debuging:
-            print('file '+file1)
+        debugmessage('file '+file1)
         fpath = os.path.dirname(file1)
         if len(fpath) == 0:
             fpath = file1
