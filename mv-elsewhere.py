@@ -59,7 +59,7 @@ def debugmessage(logstring):
         printmessage(logstring)
 
 def main():
-    scriptname = mv-elsewhere.py
+    scriptname = 'mv-elsewhere.py'
     dst = ''
     filemove = False
     filecopy = True
