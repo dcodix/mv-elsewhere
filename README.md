@@ -16,7 +16,7 @@ It is possible to do it with bash, but it gets complicated with some "user named
 
 use
 ===
-mv-elsewhere.py -d <destfile> [-m] [-o] [-v] [-D][-e string]
+	mv-elsewhere.py -d <destfile> [-m] [-o] [-v] [-D][-e string]
 
 	-d: destination directory.
 	-D: debug.
@@ -26,12 +26,16 @@ mv-elsewhere.py -d <destfile> [-m] [-o] [-v] [-D][-e string]
 	-v: verbose.
 	
 Example:
-find testdir -mtime +620  | /usr/local/bin/mv-elsewhere -d testdest -m -e excludestring
+
+	find testdir -mtime +620  | /usr/local/bin/mv-elsewhere -d testdest -m -e excludestring
 
 
 TODO
 ====
+
 -add possibility to give multiple excludes
+
 -add posibility to read files to process from a file instead of stdin
+
 -add a staristics do nothing option,.. this option will actualy do nothing. Instead it will print what would do.
 
