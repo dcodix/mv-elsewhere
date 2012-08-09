@@ -39,3 +39,4 @@ TODO
 
 -add a staristics do nothing option,.. this option will actualy do nothing. Instead it will print what would do.
 
+-add a possibility to contruct a list of files to a file while calculating the space it will take. Reporting the final space needed and the file where the list is.
