@@ -20,6 +20,7 @@ import sys
 import stat
 import errno
 import getopt
+import argparse
 from shutil import *
 import time
 
@@ -71,7 +72,6 @@ def main():
     scriptname = 'mv-elsewhere.py'
     dst = ''
     filemove = False
-    filecopy = True
     override = False
     readstdin = True
     global verbose
@@ -79,37 +79,34 @@ def main():
     verbose = False
     debuging = False
     exclude = ''
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "hd:movDe:",["destdir=", "move","ovrerride","verbose","debug","exclude"])
-    except getopt.GetoptError:
-        print(scriptname+' -d <destfile> [-m] [-o] [-v] [-D][-e string]')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print(scriptname+' -d <destfile> [-m] [-o] [-v] [-D][-e string]')
-            print('')
-            print('-d: destination directory.')
-            print('-D: debug.')
-            print('-e: excluded sting. If file or path contain this string it will be excluded.')
-            print('-m: move files instead of copy.')
-            print('-o: override files in case of copy or move.')
-            print('-v: verbose.')
-            sys.exit()
-        elif opt in ("-d", "--destdir"):
-            dst = arg
-        elif opt in ("-m", "--move"):
-            filemove = True
-            filecopy = False
-        elif opt in ("-o", "--override"):
-            override = True
-        elif opt in ("-v", "--verbose"):
-            verbose = True
-        elif opt in ("-D", "--debug"):
-            debuging = True
-            verbose = True
-        elif opt in ("-e", "--exclude"):
-            exclude = arg
+    excludelist = ''
 
+    #GET ARGS
+    parser = argparse.ArgumentParser(description='Move files')
+    parser.add_argument('-d', '--destdir', nargs=1, help='destination directory')
+    parser.add_argument('-D', '--debuging', help='debug', action="store_true")
+    parser.add_argument('-m', '--move', help='move instead of copy', action="store_true")
+    parser.add_argument('-o', '--override', help='override in destination', action="store_true")
+    parser.add_argument('-v', '--verbose', help='verbose', action="store_true")
+    parser.add_argument('-e', '--exclude', nargs='+', help='esclude list')
+    args = parser.parse_args()
+
+    if args.destdir:
+	    dst = args.destdir[0]
+    if args.debuging:
+	    verbose = True
+	    debuging = True
+    if args.move:
+        filemove = True
+    if args.override:
+        override = True
+    if args.verbose:
+	    verbose = True
+    if args.exclude:
+        excludelist = args.exclude
+
+
+    # PROCESS
     nfiles = 0
     while True:
         excludefile = False
@@ -124,10 +121,11 @@ def main():
             fpath = file1
         if debuging:
             print('fpath '+fpath)
-        if len(exclude) != 0:
-            if exclude in file1:
-                excludefile = True
-                debugmessage('file '+file1+' will be excluded')
+        if len(excludelist) != 0:
+            for exclude in excludelist:
+                if exclude in file1:
+                    excludefile = True
+                    debugmessage('file '+file1+' will be excluded')
         dfile = dst + '/' + file1
         dpath = dst + '/' + fpath
         if not os.path.isdir(dpath):
